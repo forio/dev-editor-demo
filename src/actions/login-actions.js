@@ -4,6 +4,9 @@ import {
     RECEIVE_AVAILABLE_GROUPS,
     LOGOUT,
     handleLoad,
+    getWorldAndRun,
+    getRunVariables,
+    getEditor,
 } from 'actions';
 import { selectUserType } from 'selectors';
 
@@ -19,7 +22,9 @@ export const handleLoggedIn = (session) => async (dispatch, getState) => {
     }
 
     if (userType === 'user') {
-        // do user stuff
+        await dispatch(getWorldAndRun());
+        await dispatch(getRunVariables());
+        await dispatch(getEditor());
     }
 };
 

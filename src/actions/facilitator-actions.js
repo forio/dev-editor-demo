@@ -4,7 +4,12 @@ import {
     RECEIVE_WORLD_LIST,
     handleLoad,
 } from 'actions';
-import { SCOPE_BOUNDARY, groupAdapter, worldAdapter } from 'epicenter-libs';
+import {
+    SCOPE_BOUNDARY,
+    groupAdapter,
+    runAdapter,
+    worldAdapter,
+} from 'epicenter-libs';
 
 export const getPersonas = () => async (dispatch, getState) => {
     const state = getState();
@@ -117,4 +122,17 @@ export const autoAssignUsers = () => async (dispatch, getState) => {
             'error-auto-assigning-users'
         )
     );
+};
+
+export const resetWorld = (world) => async (dispatch) => {
+    if (!world || !world?.runKey || !world?.worldKey) {
+        return null;
+    }
+
+    const promises = [
+        runAdapter.update(world.runKey, { hidden: true }),
+        runAdapter.removeFromWorld(world.worldKey),
+    ];
+    await Promise.all(promises);
+    return dispatch(getAllWorlds());
 };

@@ -7,6 +7,7 @@ import { run } from 'reducers/run-reducer';
 import { model } from 'reducers/model-reducer';
 import { modal } from 'reducers/modal-reducer';
 import { settings } from 'reducers/settings-reducer';
+import { world } from 'reducers/world-reducer';
 
 const reducerList = {
     errors,
@@ -18,6 +19,7 @@ const reducerList = {
     model,
     modal,
     settings,
+    world,
 };
 
 export default reducerList;
