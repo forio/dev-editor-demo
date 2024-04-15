@@ -7,6 +7,7 @@ import {
     getWorldAndRun,
     getRunVariables,
     getEditor,
+    connectToRunChannel,
 } from 'actions';
 import { selectUserType } from 'selectors';
 
@@ -25,6 +26,7 @@ export const handleLoggedIn = (session) => async (dispatch, getState) => {
         await dispatch(getWorldAndRun());
         await dispatch(getRunVariables());
         await dispatch(getEditor());
+        await dispatch(connectToRunChannel());
     }
 };
 

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { TextInput, Logout } from 'components';
+import { TextInput } from 'components';
 import {
     selectStepVariables,
     selectInputState,

@@ -13,11 +13,7 @@ import {
 
 export const getPersonas = () => async (dispatch, getState) => {
     const state = getState();
-    const {
-        login: {
-            session: { groupKey },
-        },
-    } = state;
+    const groupKey = state.login?.session?.groupKey;
 
     const promise = (async () => {
         const personas = await worldAdapter.getPersonas({
@@ -36,11 +32,7 @@ export const getPersonas = () => async (dispatch, getState) => {
 
 export const setPersonas = () => async (dispatch, getState) => {
     const state = getState();
-    const {
-        login: {
-            session: { groupKey },
-        },
-    } = state;
+    const groupKey = state.login?.session?.groupKey;
 
     const personas = [{ role: 'player', minimum: 1, maximum: 5 }];
 
@@ -102,9 +94,7 @@ export const clearAllWorlds = () => async (dispatch, getState) => {
 
 export const autoAssignUsers = () => async (dispatch, getState) => {
     const state = getState();
-    const {
-        facilitator: { users },
-    } = state;
+    const users = state.facilitator?.users;
     const userList = users.map((u) => ({
         userKey: u?.userKey || u?.user?.userKey,
     }));
