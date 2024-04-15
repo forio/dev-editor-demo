@@ -1,0 +1,22 @@
+dialog {
+    // dialog element must have 0 padding in order to listen for click event
+    // outside modal (on backdrop pseudo-element) to dismiss the modal
+    padding: 0 !important;
+}
+
+.modal-wrapper {
+    border: none;
+    box-shadow: $box-shadow-modal;
+    background-color: $modal-background;
+    max-width: 40rem;
+    max-height: calc(100vh - 6rem);
+
+    &::backdrop {
+        background: $overlay;
+    }
+}
+
+.modal {
+    padding: 1.5rem;
+    text-align: center;
+}

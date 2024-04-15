@@ -1,0 +1,57 @@
+$pulse-duration: 750ms;
+$base-size: 4rem;
+// Replace these named colors with constants
+$loading-color: transparentize(blue, 0.55);
+$overlay-color: transparentize(gray, 0.25);
+
+@keyframes pulse {
+    50% {
+        background: $white;
+    }
+}
+
+.loading {
+    z-index: z('loading');
+    .pulse-loading {
+        animation: pulse $pulse-duration infinite;
+        animation-delay: calc($pulse-duration / 3);
+        background: $loading-color;
+        border-radius: 0.25rem;
+        height: $base-size;
+        position: fixed;
+        width: calc($base-size / 4);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        &:before,
+        &:after {
+            animation: pulse $pulse-duration infinite;
+            background: $loading-color;
+            border-radius: 0.25rem;
+            content: '';
+            display: block;
+            height: calc($base-size / 1.5);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: calc($base-size / 4);
+        }
+        &:before {
+            left: calc(-1 * ($base-size / 2));
+        }
+        &:after {
+            animation-delay: calc($pulse-duration / 1.5);
+            left: calc($base-size / 2);
+        }
+    }
+}
+
+.loading-background-cover {
+    background: $overlay-color;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}

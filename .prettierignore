@@ -1,0 +1,8 @@
+# build directory
+public
+
+# dependencies
+node_modules
+
+# boilerplate
+src/components/index.js

@@ -1,0 +1,37 @@
+@mixin center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin accessibility-text {
+    height: 1px;
+    left: -10000px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+@mixin button {
+    cursor: pointer;
+    text-decoration: none;
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+@mixin unbutton {
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    padding: 0;
+}
+
+@mixin default-outline {
+    outline-width: medium;
+    outline-style: groove;
+    outline-color: Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+}
