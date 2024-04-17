@@ -10,6 +10,8 @@ import {
     runAdapter,
     worldAdapter,
 } from 'epicenter-libs';
+import { MODEL_FILE } from 'utils';
+import { RECEIVE_EDITORS } from './actions';
 
 export const getPersonas = () => async (dispatch, getState) => {
     const state = getState();
@@ -89,6 +91,28 @@ export const clearAllWorlds = () => async (dispatch, getState) => {
 
     return dispatch(
         handleLoad(promise, 'Clearing worlds', 'error-clear-worlds')
+    );
+};
+
+export const getAllEditors = () => async (dispatch, getState) => {
+    const promise = (async () => {
+        const state = getState();
+        const worlds = state.facilitator?.worlds;
+        const runQuery = await runAdapter.query(MODEL_FILE, {
+            filter: ['run.hidden=false'], // don't include runs taht we've marked as "hidden" (meaning we discarded them and created a new run)
+            metadata: ['editor'], // include the run metadata for 'editor' in the response for each run
+        });
+        // if we have a lot of runs, we need them all, so use the .all function
+        if (runQuery.totalResults > runQuery.resultSize) {
+            const runs = await runQuery.all();
+            dispatch({ type: RECEIVE_EDITORS, runs });
+        } else {
+            dispatch({ type: RECEIVE_EDITORS, runs: runQuery.values });
+        }
+    })();
+
+    return dispatch(
+        handleLoad(promise, 'Getting editors', 'error-get-editors')
     );
 };
 

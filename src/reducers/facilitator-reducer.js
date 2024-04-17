@@ -3,6 +3,7 @@ import {
     RECEIVE_USER_LIST,
     RECEIVE_WORLD_LIST,
     RECEIVE_PERSONAS,
+    RECEIVE_EDITORS,
 } from 'actions';
 
 const initialState = {
@@ -10,6 +11,15 @@ const initialState = {
     worlds: [],
     personas: [],
 };
+
+function handleMergeEditorsIntoWorlds(state, runs) {
+    const copy = JSON.parse(JSON.stringify(state));
+    runs.forEach((run) => {
+        const world = copy.worlds.find((w) => w.runKey === run.runKey) || {};
+        world.editor = run.metaData?.[0];
+    });
+    return copy;
+}
 
 export function facilitator(state = initialState, action) {
     switch (action.type) {
@@ -28,6 +38,8 @@ export function facilitator(state = initialState, action) {
                 ...state,
                 worlds: action.worlds,
             };
+        case RECEIVE_EDITORS:
+            return handleMergeEditorsIntoWorlds(state, action.runs);
         case LOGOUT:
             return initialState;
         default:

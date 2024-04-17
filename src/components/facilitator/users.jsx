@@ -4,6 +4,7 @@ import {
     setPersonas,
     getAllUsers,
     getAllWorlds,
+    getAllEditors,
     autoAssignUsers,
     clearAllWorlds,
 } from 'actions';
@@ -17,6 +18,7 @@ const Users = () => {
             dispatch(getPersonas()),
             dispatch(getAllUsers()),
             dispatch(getAllWorlds()),
+            dispatch(getAllEditors()),
         ]);
     };
 
@@ -61,7 +63,11 @@ const Users = () => {
                             <tr key={user?.user?.userKey}>
                                 <td>{user?.user?.displayName}</td>
                                 <td>{world?.name}</td>
-                                <td>Probably not</td>
+                                <td>
+                                    {world?.editor === user?.user?.userKey
+                                        ? 'X'
+                                        : ''}
+                                </td>
                             </tr>
                         );
                     })}
